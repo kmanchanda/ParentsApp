@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('App')
   .factory('LocationSvc', ['$q', function($q){
 
@@ -6,14 +8,14 @@ angular.module('App')
       navigator.geolocation.getCurrentPosition(function(position) {
         deferred.resolve({lat: position.coords.latitude, long: position.coords.longitude});
       }, function() {
-        deferred.resolve();
+        deferred.resolve({lat: 1.290018, long: 103.804586});// some random SIN location
       }, {
-        timeout: 5000
+        timeout: 3000
       });
       return deferred.promise;
     };
 
     return {
       get: get
-    }
+    };
   }]);

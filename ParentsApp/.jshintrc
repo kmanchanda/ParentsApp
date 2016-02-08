@@ -22,8 +22,7 @@
     "angular": true,
     "_": true,
     "d3": true,
-    "powerd3": true,
-    "moment": true,
-    "Highcharts": true
+    "google": true,
+    "moment": true
   }
 }
