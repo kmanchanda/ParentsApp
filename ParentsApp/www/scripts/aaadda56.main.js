@@ -1,0 +1,1 @@
+"use strict";angular.module("App",["ngRoute"]).config(["$routeProvider",function($routeProvider){$routeProvider.when("/",{templateUrl:"views/main.html",controller:"MainCtrl"}).otherwise({redirectTo:"/"})}]),angular.module("App").controller("MainCtrl",["$scope",function($scope){$scope.test="Angular works !!!"}]);

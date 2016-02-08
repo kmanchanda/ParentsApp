@@ -19,7 +19,7 @@ module.exports = function (grunt) {
   // Configurable paths
   var config = {
     app: 'app',
-    dist: 'dist'
+    dist: 'www'
   };
 
   // Define the configuration for all the tasks
@@ -352,17 +352,15 @@ module.exports = function (grunt) {
           dest: '<%= config.dist %>',
           src: [
             '*.{ico,png,txt}',
-            'images/{,*/}*.webp',
-            'data/triton/{,*/}*.json',
-            'styles/images/{,*/}*.*',
-            'styles/fonts/{,*/}*.*'
+            'images/{,*/}*.webp'
           ]
         }, {
           expand: true,
           dot: true,
           cwd: '.tmp',
           src: [
-            '*.html'
+            '*.html',
+            'views/*.html'
           ],
           dest: '<%= config.dist %>'
         }]
