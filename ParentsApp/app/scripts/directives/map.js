@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('App')
-  .directive('map', [function () {
+  .directive('map', ['LocationList', function (LocationList) {
 
     var pos, isMapAPILoaded;
     var _element, _map;
@@ -10,7 +10,7 @@ angular.module('App')
       var marker = new google.maps.Marker({
         position:latlong,
         map: _map,
-        icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+        icon: 'images/green-dot.png',
       });
 
       google.maps.event.addListener(marker, 'click', function(){
@@ -20,6 +20,44 @@ angular.module('App')
         });
         infoWindow.open(_map,this);
       });  
+    }
+
+    function addLocationMarkers() {
+      _.each(LocationList, function(location) {
+        var icon_type, location_type;
+        if (location.type === 'Nursing'){
+          icon_type = 'images/pink-dot.png';
+          location_type = 'Nursing Area';
+        } else if (location.type === 'Play'){
+          icon_type = 'images/blue-dot.png';
+          location_type = 'Play Area';
+        } else if (location.type === 'Food and Play'){
+          icon_type = 'images/yellow-dot.png';
+          location_type = 'Food And Play Area';
+        } else {
+          icon_type = 'images/red-dot.png';
+          location_type = location.type;
+        }
+
+        var marker = new google.maps.Marker({
+          position:new google.maps.LatLng(location.lat, location.lon),
+          map: _map,
+          title: location.name,
+          details: location.details,
+          url: location.url,
+          type: location_type,
+          icon: icon_type,
+        });
+
+        google.maps.event.addListener(marker, 'click', function(){
+          var info_body = '<b>'+this.title + ' (' + this.type + ')</b><br>' + this.details + '<br><b>' + this.url + '</b>';
+          var infoWindow = new google.maps.InfoWindow({
+            content: info_body,
+          });
+          infoWindow.open(_map,this);
+        });
+
+      });
     }
 
     function loadMapAPI(){
@@ -41,6 +79,7 @@ angular.module('App')
         mapTypeId:google.maps.MapTypeId.ROADMAP
       });
       addMyLocationMarker(currentPos);
+      addLocationMarkers();
     }
 
     window.mapAPILoaded = function() {

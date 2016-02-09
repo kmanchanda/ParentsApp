@@ -5,7 +5,30 @@ $main-color: rgba(76,224,76,0.5);
 
 // -== LAYOUT ==-
 
-body {
-  padding: 0px;
-  margin: 0px;
+html {
+  height: 100%;
+  body {
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
+    .container {
+      height: 100%;
+      position: relative;
+    }
+  }
+}
+
+.map-container {
+  height: 100%;
+}
+
+.legend {
+  font-family: Arial, sans-serif;
+  background: #fff;
+  padding: 5px;
+  margin: 5px;
+  border: 2px solid #000;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
 }
