@@ -31,4 +31,16 @@ html {
   position: absolute;
   bottom: 10px;
   left: 10px;
+  width: 214px;
+  button {
+    width: 200px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    &:nth-last-child(1) {
+      margin-bottom: 0px;
+    }
+    &.selected {
+      background-color: #5bc0de;  
+    }
+  }
 }

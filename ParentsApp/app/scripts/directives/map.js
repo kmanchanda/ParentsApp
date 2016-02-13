@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('App')
-  .directive('map', ['LocationList', function (LocationList) {
+  .directive('map', ['LocationList', 'LocationTypeList', function (LocationList, LocationTypeList) {
 
     var pos, isMapAPILoaded;
     var _element, _map;
@@ -24,29 +24,17 @@ angular.module('App')
 
     function addLocationMarkers() {
       _.each(LocationList, function(location) {
-        var icon_type, location_type;
-        if (location.type === 'Nursing'){
-          icon_type = 'images/pink-dot.png';
-          location_type = 'Nursing Area';
-        } else if (location.type === 'Play'){
-          icon_type = 'images/blue-dot.png';
-          location_type = 'Play Area';
-        } else if (location.type === 'Food and Play'){
-          icon_type = 'images/yellow-dot.png';
-          location_type = 'Food And Play Area';
-        } else {
-          icon_type = 'images/red-dot.png';
-          location_type = location.type;
-        }
-
+        location.id = (location.type === 'Nursing') || (location.type === 'Play') || (location.type === 'Food and Play') ? location.type : 'Others';
+        location.type = (location.type === 'Nursing') || (location.type === 'Play') || (location.type === 'Food and Play') ? location.type + ' Area' : location.type;
+        
         var marker = new google.maps.Marker({
           position:new google.maps.LatLng(location.lat, location.lon),
           map: _map,
           title: location.name,
           details: location.details,
           url: location.url,
-          type: location_type,
-          icon: icon_type,
+          type: location.type,
+          icon: 'images/' + LocationTypeList[location.id].icon
         });
 
         google.maps.event.addListener(marker, 'click', function(){

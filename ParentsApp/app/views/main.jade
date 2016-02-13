@@ -1,14 +1,5 @@
 .map-container(map="")
 .legend
-  div
-    img(src='images/blue-dot.png')
-    | Play
-  div
-    img(src='images/pink-dot.png')
-    | Nursing
-  div
-    img(src='images/yellow-dot.png')
-    | Food And Play
-  div
-    img(src='images/red-dot.png')
-    | Other
+  button(ng-repeat="item in locationTypes")
+    img(ng-src='images/{{item.icon}}')
+    | {{item.name}}
