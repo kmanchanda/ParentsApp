@@ -22,11 +22,11 @@ angular.module('App')
       });  
     }
 
-    function addLocationMarkers() {
+    function addLocationMarkers(locationTypes) {
       _.each(LocationList, function(location) {
         location.id = (location.type === 'Nursing') || (location.type === 'Play') || (location.type === 'Food and Play') ? location.type : 'Others';
         location.type = (location.type === 'Nursing') || (location.type === 'Play') || (location.type === 'Food and Play') ? location.type + ' Area' : location.type;
-        
+
         var marker = new google.maps.Marker({
           position:new google.maps.LatLng(location.lat, location.lon),
           map: _map,
@@ -45,6 +45,17 @@ angular.module('App')
           infoWindow.open(_map,this);
         });
 
+        location.marker = marker;
+      });
+      toggleMarkers(locationTypes);
+    }
+
+    function toggleMarkers(locationTypes) {
+      var visibleMarkers = _.map(_.filter(locationTypes, 'selected'), 'name');
+      _.each(LocationList, function(location) {
+        if(location.marker) {
+          location.marker.setVisible(_.indexOf(visibleMarkers, location.id) >= 0);
+        }
       });
     }
 
@@ -56,7 +67,7 @@ angular.module('App')
     }
     loadMapAPI();
 
-    function plotMap(){
+    function plotMap(locationTypes){
       if(!pos || !isMapAPILoaded) {
         return;
       }
@@ -67,7 +78,7 @@ angular.module('App')
         mapTypeId:google.maps.MapTypeId.ROADMAP
       });
       addMyLocationMarker(currentPos);
-      addLocationMarkers();
+      addLocationMarkers(locationTypes);
     }
 
     window.mapAPILoaded = function() {
@@ -83,7 +94,10 @@ angular.module('App')
         _element = element;
         scope.$on('location:get', function(e, position) {
           pos = position;
-          plotMap();
+          plotMap(scope.locationTypes);
+        });
+        scope.$on('toggle:markers', function() {
+          toggleMarkers(scope.locationTypes);
         });
       }
     };

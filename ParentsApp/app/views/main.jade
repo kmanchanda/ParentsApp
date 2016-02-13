@@ -1,5 +1,5 @@
 .map-container(map="")
 .legend
-  button(ng-repeat="item in locationTypes")
+  button(ng-repeat="item in locationTypes", ng-click="toggleLocationType(item)", ng-class="{selected: item.selected}")
     img(ng-src='images/{{item.icon}}')
     | {{item.name}}
