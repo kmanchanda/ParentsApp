@@ -1,5 +1,16 @@
+.nav-container
+  .explore-buttons
+    button(ng-click="toggleLocationType('Play')")
+      b EXPLORE&nbsp;
+      | PLAY AREAS
+    button(ng-click="toggleLocationType('Nursing')")
+      b EXPLORE&nbsp;
+      | NURSING AREAS
+    button(ng-click="toggleLocationType()")
+      | SHOW ME
+      b &nbsp;ALL&nbsp;
+      | THE COOL SPOTS
+  .profile-buttons
+    button
+      | TELL US YOUR FAVORITE SPOT
 .map-container(map="")
-.legend
-  button(ng-repeat="item in locationTypes", ng-click="toggleLocationType(item)", ng-class="{selected: item.selected}")
-    img(ng-src='images/{{item.icon}}')
-    | {{item.name}}

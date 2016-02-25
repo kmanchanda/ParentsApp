@@ -1,6 +1,7 @@
-$fa-font-path: "../styles/fonts/";
+$fa-font-path: "../fonts/";
 @import "font-awesome/scss/font-awesome.scss";
 
 @import '_normalize';
+@import '_font';
 
 @import '_layout';

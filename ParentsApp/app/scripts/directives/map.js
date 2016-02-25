@@ -3,7 +3,6 @@
 angular.module('App')
   .directive('map', ['LocationList', 'LocationTypeList', function (LocationList, LocationTypeList) {
 
-    var pos, isMapAPILoaded;
     var _element, _map;
 
     function addMyLocationMarker(latlong) {
@@ -22,7 +21,7 @@ angular.module('App')
       });  
     }
 
-    function addLocationMarkers(locationTypes) {
+    function addLocationMarkers() {
       _.each(LocationList, function(location) {
         location.id = (location.type === 'Nursing') || (location.type === 'Play') || (location.type === 'Food and Play') ? location.type : 'Others';
         location.type = (location.type === 'Nursing') || (location.type === 'Play') || (location.type === 'Food and Play') ? location.type + ' Area' : location.type;
@@ -47,14 +46,13 @@ angular.module('App')
 
         location.marker = marker;
       });
-      toggleMarkers(locationTypes);
+      toggleMarkers();
     }
 
-    function toggleMarkers(locationTypes) {
-      var visibleMarkers = _.map(_.filter(locationTypes, 'selected'), 'name');
+    function toggleMarkers(locationType) {
       _.each(LocationList, function(location) {
         if(location.marker) {
-          location.marker.setVisible(_.indexOf(visibleMarkers, location.id) >= 0);
+          location.marker.setVisible(!locationType || (locationType === location.id));
         }
       });
     }
@@ -63,14 +61,11 @@ angular.module('App')
       var script = document.createElement('script');
       script.type = 'text/javascript';
       document.getElementsByTagName('head')[0].appendChild(script);
-      script.src = 'http://maps.googleapis.com/maps/api/js?v=3&sensor=false&callback=mapAPILoaded';
+      script.src = 'http://maps.googleapis.com/maps/api/js?v=3&callback=plotMap';
     }
-    loadMapAPI();
 
-    function plotMap(locationTypes){
-      if(!pos || !isMapAPILoaded) {
-        return;
-      }
+    window.plotMap = function(){
+      var pos = {lat: 1.290018, long: 103.804586};
       var currentPos = new google.maps.LatLng(pos.lat, pos.long);
       _map = new google.maps.Map(_element[0], {
         center:currentPos,
@@ -78,12 +73,7 @@ angular.module('App')
         mapTypeId:google.maps.MapTypeId.ROADMAP
       });
       addMyLocationMarker(currentPos);
-      addLocationMarkers(locationTypes);
-    }
-
-    window.mapAPILoaded = function() {
-      isMapAPILoaded = true;
-      plotMap();
+      addLocationMarkers();
     };
 
     return {
@@ -92,12 +82,10 @@ angular.module('App')
 
       link: function(scope, element) {
         _element = element;
-        scope.$on('location:get', function(e, position) {
-          pos = position;
-          plotMap(scope.locationTypes);
-        });
-        scope.$on('toggle:markers', function() {
-          toggleMarkers(scope.locationTypes);
+        loadMapAPI();
+
+        scope.$on('toggle:markers', function(e, m) {
+          toggleMarkers(m);
         });
       }
     };
