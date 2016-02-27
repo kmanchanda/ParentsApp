@@ -30,8 +30,10 @@
 .map-container
   .header
     span(style="font-size: 1.1em;") {{selectedLocationType}} areas
-    button(ng-click="backToNav()")
+    button.left-side(ng-click="backToNav()")
       i.fa.fa-angle-left
+    button.right-side
+      i.fa.fa-crosshairs
   .main-section(map="")
   .footer
     div

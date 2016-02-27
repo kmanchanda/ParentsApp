@@ -3,8 +3,8 @@
 angular.module('App')
   .directive('map', ['LocationList', function (LocationList) {
 
-    var _element, _scope, _map;
-    var baseMarkerIcon, myLocationIcon;
+    var _element, _scope, _map, _prevSelectedMarker;
+    var baseMarkerIcon, myLocationIcon, selectedMarkerIcon;
 
     // --=== marker defintions ===--
 
@@ -25,6 +25,13 @@ angular.module('App')
         strokeColor: '#FFFFFF',
         scale: 7,
         strokeWeight: 2
+      };
+      selectedMarkerIcon = {
+        path: 'M1152 640q0-106-75-181t-181-75-181 75-75 181 75 181 181 75 181-75 75-181zm256 0q0 109-33 179l-364 774q-16 33-47.5 52t-67.5 19-67.5-19-46.5-52l-365-774q-33-70-33-179 0-212 150-362t362-150 362 150 150 362z',
+        fillColor: '#CD0000',
+        fillOpacity: 1.0,
+        anchor: new google.maps.Point(896,1392),
+        scale: 40/1792
       };
     }
 
@@ -57,6 +64,9 @@ angular.module('App')
         });
 
         google.maps.event.addListener(marker, 'click', function(){
+          marker.setIcon(selectedMarkerIcon);
+          if(_prevSelectedMarker && _prevSelectedMarker != marker) {_prevSelectedMarker.setIcon(baseMarkerIcon);}
+          _prevSelectedMarker = marker;
           _scope.selectedLocation = {title: this.title, details: this.details, url: this.url};
           _scope.$apply();
         });
