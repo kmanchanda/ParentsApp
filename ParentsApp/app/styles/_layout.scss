@@ -13,6 +13,7 @@ html {
     height: 100%;
     font-family: 'Open Sans';
     font-size: 14px;
+    color: #1b1b1b;
     .container {
       height: 100%;
       width: 200%;
@@ -31,104 +32,115 @@ html {
   width: 50%;
   float: left;
   position: relative;
-}
-
-.nav-container {
-  background: url(../images/nav_back.jpg) no-repeat 0 0;
-  background-size: 100% 100%;
-  padding: 10% 4% 0 4%;
-  .logo {
-    span:nth-child(1) {
-      font-weight: 800;
-    }
-    span:nth-child(2) {
-      font-weight: 300;
-    }
-    span:nth-child(3) {
-      font-weight: 800;
-    }
-  }
-  .explore-buttons {
-    button {
-      background: transparent;
-      border: 0px;
-      box-shadow: none;
-      text-align: left;
-      width: 100%;
-      margin: 20px 10px;
-      color: white;
-      font-size: 18px;
-      &:hover, &:active {
-        text-decoration: underline;
-        color: #eee;
-      }
-    }
-  }
-  .profile-buttons {
-    text-align: center;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding-bottom: 20px;
-    button {
-      background: transparent;
-      border: 1px solid #FFF;
-      width: 80%;
-      padding: 10px 0px;
-      border-radius: 4px;
-      color: #FFF;
-      font-size: 16px;
-      &:hover, &:active {
-        background-color: #FFF;
-        color: black;
-      }
-    } 
-  }
-}
-
-.map-container {
   padding: 70px 0 0 0;
   .header {
     position: absolute;
     top: 0;
+    left: 0;
     width: 100%;
     height: 70px;
-    padding-top: 20px;
+    background-color: white;
+    border-bottom: 1px solid #c2c2c2;
+    padding: 20px;
     line-height: 50px;
-    color: white;
     text-align: center;
+    
     z-index: 1;
-    background-color: #232323;
-    font-size: 18px;
     button {
       position: absolute;
       top: 20px;
       left: 0;
       background: transparent;
       border: none;
-      color: #23C064;
       padding: 0px 20px 0px 20px;
-      font-size: 20px;
+      font-size: 1.6em;
     }
-  }
-  .main-section {
-    height: 100%;
   }
   .footer {
     position: absolute;
     bottom: 0;
+    left: 0;
     width: 100%;
     z-index: 1;
-    background: #f8f8f8;
-    padding: 15px;
-    h5 {
-      font-size: 14px;
-      margin: 0;
-      text-transform: uppercase;
+  }
+  .btn-primary {
+    background: #0CC260;
+    border: none;
+    padding: 10px 0px;
+    color: white;
+    border-radius: 0px;
+    &:hover, &:active {
+      background-color: #279A5C;
     }
-    p {
-      margin: 0; 
+  } 
+}
+
+.nav-container {
+  background: #f3f3f3;
+  .explore-button {
+    margin: 0 4%;
+    border-bottom: 1px solid #c2c2c2;
+    padding: 20px 10px;
+    cursor: pointer;
+    &:hover, &:active {
+      color: #999;
+    }
+    i.fa {
+      float: right;
+      font-size: 1.6em;
+      margin-right: -5px;
+    }
+  }
+  .footer {
+    > div{
+      margin: 0 4%;
+      label {
+        font-size: 0.8em;
+        display: inline-block;
+        width: 100%;
+        small {
+          color: #a7a7a7;
+          font-size: 1em;
+        }
+      }
+      input {
+        width: 100%;
+        font-size: 0.8em;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #c2c2c2;
+        margin: 5px 0 15px 0;
+      }
+    }
+    > button {
+      width: 100%;
+    } 
+  }
+}
+
+.map-container {
+  .main-section {
+    height: 100%;
+  }
+  .footer {
+    > div {
+      background: #f3f3f3;
+      padding: 15px 4%;
+      font-size: 0.8em;
+      > p {
+        margin: 0; 
+      }
+      > a {
+        text-decoration: none;
+        margin-bottom: 5px;
+        display: inline-block;
+      }
+      > button {
+        border-radius: 4px;
+        width: 70px;
+        float: right;
+        margin: 0 0 5px 5px;
+      }
     }
   }
 }

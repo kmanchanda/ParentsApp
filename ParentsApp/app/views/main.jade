@@ -1,27 +1,49 @@
 .nav-container
-  .logo 
-    span SINGAPORE
-    span FOR
-    span PARENTS
-  .explore-buttons
-    button(ng-click="toggleLocationType('Play')")
-      b EXPLORE&nbsp;
-      | PLAY AREAS
-    button(ng-click="toggleLocationType('Nursing')")
-      b EXPLORE&nbsp;
-      | NURSING AREAS
-    button(ng-click="toggleLocationType()")
-      | ALL AREAS
-  .profile-buttons
-    button
-      | TELL US YOUR FAVORITE SPOTS
+  .header(style="font-size: 1.1em;")
+    span(style="font-weight: 800;") SINGAPORE
+    span(style="font-weight: 300; color: #a7a7a7;") FOR
+    span(style="font-weight: 800;") PARENTS
+  .explore-button(ng-click="toggleLocationType('Play')")
+    i.fa.fa-angle-right
+    b PLAY AREAS&nbsp;
+    | FOR KIDS
+    br
+    small The coolest play areas in Singapore hand-picked for you to explore
+  .explore-button(ng-click="toggleLocationType('Nursing')")
+    i.fa.fa-angle-right
+    b NURSING&nbsp;
+    | SPOTS
+    br
+    small Find the nursing spot closest to where you are or planning to go
+  .footer
+    div
+      label
+        b YOUR NAME
+        small &nbsp;Would be nice to know your name
+      input(type="text", value="Awesome Parent")
+      label
+        b EMAIL
+        small &nbsp;No spam, promise
+      input(type="text", value="parent@singapore.com")
+    button.btn-primary
+      | SUGGEST A SPOT
 .map-container
   .header
-    | {{selectedLocationType}} Areas
+    span(style="font-size: 1.1em;") {{selectedLocationType}} areas
     button(ng-click="backToNav()")
-      i.fa.fa-arrow-left
+      i.fa.fa-angle-left
   .main-section(map="")
   .footer
-    h5 {{selectedLocation.title || 'Select a location'}}
-    p {{selectedLocation.details}}
-    a(ng-if="selectedLocation.url" ng-href="{{selectedLocation.url}}") {{selectedLocation.url}}
+    div
+      p(ng-if="!selectedLocation", style="font-weight: 300; font-style: italic;")
+        i.fa.fa-angle-double-left
+        | &nbsp;SELECT A LOCATION ON THE MAP&nbsp;
+        i.fa.fa-angle-double-right
+      button.btn-primary(ng-if="selectedLocation.title")
+        i.fa.fa-comment-o
+        | &nbsp;13
+      a(ng-if="selectedLocation.url" ng-href="{{selectedLocation.url}}", style="font-weight: 300;")
+        i.fa.fa-link
+        | &nbsp;{{selectedLocation.url}}
+      p(ng-if="selectedLocation.title", style="font-weight: 700") {{selectedLocation.title}}
+      p(ng-if="selectedLocation.details", style="font-weight: 300") {{selectedLocation.details}}
