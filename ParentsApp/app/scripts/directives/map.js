@@ -1,36 +1,59 @@
 'use strict';
 
 angular.module('App')
-  .directive('map', ['LocationList', 'LocationTypeList', function (LocationList, LocationTypeList) {
+  .directive('map', ['LocationList', function (LocationList) {
 
     var _element, _scope, _map;
+    var baseMarkerIcon, myLocationIcon;
+
+    // --=== marker defintions ===--
+
+    function createMarkerIcons() {
+      myLocationIcon = {
+        path: google.maps.SymbolPath.CIRCLE,
+        fillColor: '#3E82F7',
+        fillOpacity: 1.0,
+        strokeColor: '#3E82F7',
+        strokeOpacity: 0.3,
+        scale: 5,
+        strokeWeight: 3
+      };
+      baseMarkerIcon = {
+        path: google.maps.SymbolPath.CIRCLE,
+        fillColor: '#FF0000',
+        fillOpacity: 0.6,
+        strokeColor: '#FFFFFF',
+        scale: 7,
+        strokeWeight: 2
+      };
+    }
+
+    // --=== map initialization and rendering ===--
 
     function addMyLocationMarker(latlong) {
       var marker = new google.maps.Marker({
         position:latlong,
         map: _map,
-        icon: 'images/green-dot.png',
+        icon: myLocationIcon,
       });
-
-      google.maps.event.addListener(marker, 'click', function(){
-        _scope.selectedLocation = {title: 'Your location'};
-        _scope.$apply();
-      });  
+      var infoWindow = new google.maps.InfoWindow({
+        content: 'YOUR CURRENT LOCATION'
+      });
+      google.maps.event.addListener(marker, 'click', function() {
+        infoWindow.open(_map,this);
+      });
     }
 
-    function addLocationMarkers() {
+    function addLocationMarkers() {      
       _.each(LocationList, function(location) {
-        location.id = (location.type === 'Nursing') || (location.type === 'Play') || (location.type === 'Food and Play') ? location.type : 'Others';
-        location.type = (location.type === 'Nursing') || (location.type === 'Play') || (location.type === 'Food and Play') ? location.type + ' Area' : location.type;
-
         var marker = new google.maps.Marker({
           position:new google.maps.LatLng(location.lat, location.lon),
           map: _map,
           title: location.name,
           details: location.details,
-          url: location.url,
           type: location.type,
-          icon: 'images/' + LocationTypeList[location.id].icon
+          url: location.url,
+          icon: baseMarkerIcon
         });
 
         google.maps.event.addListener(marker, 'click', function(){
@@ -46,7 +69,7 @@ angular.module('App')
     function toggleMarkers(locationType) {
       _.each(LocationList, function(location) {
         if(location.marker) {
-          location.marker.setVisible(!locationType || (locationType === location.id));
+          location.marker.setVisible(!locationType || (locationType === location.type));
         }
       });
     }
@@ -71,6 +94,7 @@ angular.module('App')
         },
         mapTypeId:google.maps.MapTypeId.ROADMAP
       });
+      createMarkerIcons();
       addMyLocationMarker(currentPos);
       addLocationMarkers();
     };
