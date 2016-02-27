@@ -1,4 +1,8 @@
 .nav-container
+  .logo 
+    span SINGAPORE
+    span FOR
+    span PARENTS
   .explore-buttons
     button(ng-click="toggleLocationType('Play')")
       b EXPLORE&nbsp;
@@ -7,10 +11,17 @@
       b EXPLORE&nbsp;
       | NURSING AREAS
     button(ng-click="toggleLocationType()")
-      | SHOW ME
-      b &nbsp;ALL&nbsp;
-      | THE COOL SPOTS
+      | ALL AREAS
   .profile-buttons
     button
-      | TELL US YOUR FAVORITE SPOT
-.map-container(map="")
+      | TELL US YOUR FAVORITE SPOTS
+.map-container
+  .header
+    | {{selectedLocationType}} Areas
+    button(ng-click="backToNav()")
+      i.fa.fa-arrow-left
+  .main-section(map="")
+  .footer
+    h5 {{selectedLocation.title || 'Select a location'}}
+    p {{selectedLocation.details}}
+    a(ng-if="selectedLocation.url" ng-href="{{selectedLocation.url}}") {{selectedLocation.url}}

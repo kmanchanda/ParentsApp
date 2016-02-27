@@ -3,7 +3,7 @@
 angular.module('App')
   .directive('map', ['LocationList', 'LocationTypeList', function (LocationList, LocationTypeList) {
 
-    var _element, _map;
+    var _element, _scope, _map;
 
     function addMyLocationMarker(latlong) {
       var marker = new google.maps.Marker({
@@ -13,11 +13,8 @@ angular.module('App')
       });
 
       google.maps.event.addListener(marker, 'click', function(){
-        var info_body = '<b>Current Location</b>';
-        var infoWindow = new google.maps.InfoWindow({
-          content: info_body,
-        });
-        infoWindow.open(_map,this);
+        _scope.selectedLocation = {title: 'Your location'};
+        _scope.$apply();
       });  
     }
 
@@ -37,11 +34,8 @@ angular.module('App')
         });
 
         google.maps.event.addListener(marker, 'click', function(){
-          var info_body = '<b>'+this.title + ' (' + this.type + ')</b><br>' + this.details + '<br><b>' + this.url + '</b>';
-          var infoWindow = new google.maps.InfoWindow({
-            content: info_body,
-          });
-          infoWindow.open(_map,this);
+          _scope.selectedLocation = {title: this.title, details: this.details, url: this.url};
+          _scope.$apply();
         });
 
         location.marker = marker;
@@ -65,11 +59,16 @@ angular.module('App')
     }
 
     window.plotMap = function(){
-      var pos = {lat: 1.290018, long: 103.804586};
+      var pos = {lat: 1.34, long: 103.85};
       var currentPos = new google.maps.LatLng(pos.lat, pos.long);
       _map = new google.maps.Map(_element[0], {
         center:currentPos,
-        zoom:15,
+        zoom:12,
+        disableDefaultUI: true,
+        zoomControl: true,
+        zoomControlOptions: {
+          position: google.maps.ControlPosition.RIGHT_TOP
+        },
         mapTypeId:google.maps.MapTypeId.ROADMAP
       });
       addMyLocationMarker(currentPos);
@@ -82,6 +81,7 @@ angular.module('App')
 
       link: function(scope, element) {
         _element = element;
+        _scope = scope;
         loadMapAPI();
 
         scope.$on('toggle:markers', function(e, m) {

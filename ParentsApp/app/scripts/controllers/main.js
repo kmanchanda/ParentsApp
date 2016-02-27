@@ -5,7 +5,12 @@ angular.module('App')
 
     $scope.toggleLocationType = function(locationType) {
       $rootScope.mapSectionOpen = true;
+      $scope.selectedLocationType = locationType || 'All';
       $scope.$broadcast('toggle:markers', locationType);
+    };
+
+    $scope.backToNav = function() {
+      $rootScope.mapSectionOpen = false;
     };
 
   }]);
