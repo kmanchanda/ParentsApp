@@ -4,18 +4,19 @@
       span(style="font-weight: 800;") SINGAPORE
       span(style="font-weight: 300; color: #a7a7a7;") FOR
       span(style="font-weight: 800;") PARENTS
-    .explore-button(ng-click="toggleLocationType('Play')")
-      i.fa.fa-angle-right
-      b PLAY AREAS&nbsp;
-      | FOR KIDS
-      br
-      small The coolest play areas in Singapore hand-picked for you to explore
-    .explore-button(ng-click="toggleLocationType('Nursing')")
-      i.fa.fa-angle-right
-      b NURSING&nbsp;
-      | SPOTS
-      br
-      small Find the nursing spot closest to where you are or planning to go
+    div(style="height: 100%; overflow-y: auto; overflow-x: hidden;")
+      .explore-button(ng-click="toggleLocationType('Play')")
+        i.fa.fa-angle-right
+        b PLAY AREAS&nbsp;
+        | FOR KIDS
+        br
+        small The coolest play areas in Singapore hand-picked for you to explore
+      .explore-button(ng-click="toggleLocationType('Nursing')")
+        i.fa.fa-angle-right
+        b NURSING&nbsp;
+        | SPOTS
+        br
+        small Find the nursing spot closest to where you are or planning to go
     .footer
       div
         label
@@ -57,6 +58,10 @@
     button.right-side(ng-click="closeMessages()")
       i.fa.fa-close
   .main-section
-    | Text
+    .message(ng-repeat="msg in [0,1,2,3,4,5]")
+      span.badge 3 days
+      span Test 1
+      small This is a test message for this app for us to see how cool it looks and here it is. This is a test message for this app for us to see how cool it looks.
   .footer
-    textarea
+    .send-button(ng-click="") SEND
+    textarea(placeholder="Your message")
