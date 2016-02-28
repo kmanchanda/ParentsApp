@@ -64,10 +64,16 @@ angular.module('App')
         });
 
         google.maps.event.addListener(marker, 'click', function(){
-          marker.setIcon(selectedMarkerIcon);
-          if(_prevSelectedMarker && _prevSelectedMarker != marker) {_prevSelectedMarker.setIcon(baseMarkerIcon);}
-          _prevSelectedMarker = marker;
-          _scope.selectedLocation = {title: this.title, details: this.details, url: this.url};
+          if(_prevSelectedMarker !== marker) {
+            marker.setIcon(selectedMarkerIcon);
+            if(_prevSelectedMarker) {_prevSelectedMarker.setIcon(baseMarkerIcon);}
+            _prevSelectedMarker = marker;
+            _scope.selectedLocation = {title: this.title, details: this.details, url: this.url};  
+          } else {
+            marker.setIcon(baseMarkerIcon);
+            _prevSelectedMarker = null;
+            _scope.selectedLocation = null;
+          }
           _scope.$apply();
         });
 

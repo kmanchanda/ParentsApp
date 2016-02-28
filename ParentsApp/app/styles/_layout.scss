@@ -16,12 +16,16 @@ html {
     color: #1b1b1b;
     .container {
       height: 100%;
-      width: 200%;
       position: relative;
-      transform: translateX(0%);
-      transition: transform 0.4s ease-in;
-      &.map-section-open {
-        transform: translateX(-50%);
+      .scroll-container {
+        height: 100%;
+        width: 200%;
+        position: relative;
+        transform: translateX(0%);
+        transition: transform 0.4s ease-in;
+        &.map-section-open {
+          transform: translateX(-50%);
+        }  
       }
     }
   }
@@ -150,4 +154,14 @@ html {
       }
     }
   }
+}
+
+.message-container {
+  background: red;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
 }
