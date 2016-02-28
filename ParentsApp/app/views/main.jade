@@ -52,7 +52,7 @@
           | &nbsp;{{selectedLocation.url}}
         p(ng-if="selectedLocation.title", style="font-weight: 700") {{selectedLocation.title}}
         p(ng-if="selectedLocation.details", style="font-weight: 300") {{selectedLocation.details}}
-.message-container(ng-show="messagesSectionOpen")
+.message-container(ng-class="{'messages-section-open': messagesSectionOpen}")
   .header
     span(style="font-size: 1.1em;") MESSAGES
     button.right-side(ng-click="closeMessages()")

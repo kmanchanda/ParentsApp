@@ -167,12 +167,17 @@ html {
 
 .message-container {
   position: absolute;
-  top: 0;
+  top: 100%;
   left: 0;
   width: 100%;
   z-index: 10;
   background-color: white;
   padding-bottom: 54px;
+  transform: translateY(0%);
+  transition: transform 0.4s ease-in;
+  &.messages-section-open {
+    transform: translateY(-100%);
+  }
   .main-section {
     height: 100%;
     overflow-y: auto;
