@@ -33,8 +33,9 @@
       span(style="font-size: 1.1em;") {{selectedLocationType}} areas
       button.left-side(ng-click="backToNav()")
         i.fa.fa-angle-left
-      button.right-side
-        i.fa.fa-crosshairs
+      button.right-side(ng-click="getMyLocation()")
+        i.fa.fa-crosshairs(ng-if="!locationRequest")
+        i.fa.fa-spinner.fa-spin(ng-if="locationRequest")
     .main-section(map="")
     .footer
       div

@@ -3,7 +3,7 @@
 angular.module('App')
   .directive('map', ['LocationList', function (LocationList) {
 
-    var _element, _scope, _map, _prevSelectedMarker;
+    var _element, _scope, _map, _prevSelectedMarker, _myLocationMarker;
     var baseMarkerIcon, myLocationIcon, selectedMarkerIcon;
 
     // --=== marker defintions ===--
@@ -35,6 +35,19 @@ angular.module('App')
       };
     }
 
+    // --=== getCurrentLocation ===--
+
+    function updateMyLocation(latlong) {
+      if(latlong) {
+        var newLoc = new google.maps.LatLng(latlong.lat, latlong.long);
+        _myLocationMarker.setPosition(newLoc);
+        _myLocationMarker.setVisible(true);
+        _map.panTo(newLoc);
+      } else {
+        _myLocationMarker.setVisible(false);
+      }
+    }    
+
     // --=== map initialization and rendering ===--
 
     function addMyLocationMarker(latlong) {
@@ -42,6 +55,7 @@ angular.module('App')
         position:latlong,
         map: _map,
         icon: myLocationIcon,
+        visible: false
       });
       var infoWindow = new google.maps.InfoWindow({
         content: 'YOUR CURRENT LOCATION'
@@ -49,6 +63,7 @@ angular.module('App')
       google.maps.event.addListener(marker, 'click', function() {
         infoWindow.open(_map,this);
       });
+      _myLocationMarker = marker;
     }
 
     function addLocationMarkers() {      
@@ -126,6 +141,9 @@ angular.module('App')
 
         scope.$on('toggle:markers', function(e, m) {
           toggleMarkers(m);
+        });
+        scope.$on('update:location', function(e, m) {
+          updateMyLocation(m);
         });
       }
     };
