@@ -17,6 +17,7 @@ html {
     .container {
       height: 100%;
       position: relative;
+      overflow: hidden;
       .scroll-container {
         height: 100%;
         width: 200%;
@@ -46,7 +47,7 @@ html {
     padding: 20px;
     line-height: 50px;
     text-align: center;
-    
+    overflow: hidden;
     z-index: 1;
     button {
       position: absolute;
@@ -194,6 +195,7 @@ html {
       small {
         font-weight: 300;
         display: inline-block;
+        width: 100%;
       }
     }
   }

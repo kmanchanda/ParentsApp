@@ -22,12 +22,12 @@
         label
           b YOUR NAME
           small &nbsp;Would be nice to know your name
-        input(type="text", value="Awesome Parent")
+        input(type="text", value="Awesome Parent", placeholder="Your name")
         label
           b EMAIL
           small &nbsp;No spam, promise
-        input(type="text", value="parent@singapore.com")
-      button.btn-primary(ng-click="showMessages()")
+        input(type="text", placeholder="Your email id")
+      button.btn-primary(ng-click="showMessages('Suggest a spot', false)")
         | SUGGEST A SPOT
   .map-container
     .header
@@ -44,7 +44,7 @@
           i.fa.fa-angle-double-left
           | &nbsp;SELECT A LOCATION ON THE MAP TO VIEW DETAILS&nbsp;
           i.fa.fa-angle-double-right
-        button.btn-primary(ng-if="selectedLocation.title", ng-click="showMessages()")
+        button.btn-primary(ng-if="selectedLocation.title", ng-click="showMessages(selectedLocation.title, true)")
           i.fa.fa-comment-o
           | &nbsp;13
         a(ng-if="selectedLocation.url", ng-href="{{selectedLocation.url}}", style="font-weight: 300;")
@@ -54,14 +54,14 @@
         p(ng-if="selectedLocation.details", style="font-weight: 300") {{selectedLocation.details}}
 .message-container(ng-class="{'messages-section-open': messagesSectionOpen}")
   .header
-    span(style="font-size: 1.1em;") MESSAGES
+    span(style="font-size: 1.1em;") {{messageSectionTitle}}
     button.right-side(ng-click="closeMessages()")
       i.fa.fa-close
   .main-section
-    .message(ng-repeat="msg in [0,1,2,3,4,5]")
+    .message(ng-repeat="msg in messages")
       span.badge 3 days
-      span Test 1
-      small This is a test message for this app for us to see how cool it looks and here it is. This is a test message for this app for us to see how cool it looks.
+      span {{msg.name}}
+      small {{msg.msg}}
   .footer
-    .send-button(ng-click="") SEND
-    textarea(placeholder="Your message")
+    .send-button(ng-click="addMessage()") SEND
+    textarea(placeholder="Your message", ng-model="newMessage")
