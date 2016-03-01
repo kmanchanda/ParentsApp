@@ -27,7 +27,7 @@
           b EMAIL
           small &nbsp;No spam, promise
         input(type="text", ng-model="userEmail", placeholder="Your email id", maxlength="50", ng-change="updateUserInfo()")
-      button.btn-primary(ng-click="showMessages('Suggest a spot', false)")
+      button.btn-primary(ng-click="showMessages('Suggest a spot', true)")
         | SUGGEST A SPOT
   .map-container
     .header
@@ -44,7 +44,7 @@
           i.fa.fa-angle-double-left
           | &nbsp;SELECT A LOCATION ON THE MAP TO VIEW DETAILS&nbsp;
           i.fa.fa-angle-double-right
-        button.btn-primary(ng-if="selectedLocation.title", ng-click="showMessages(selectedLocation.title, true)")
+        button.btn-primary(ng-if="selectedLocation.title", ng-click="showMessages(selectedLocation.title, false)")
           i.fa.fa-comment-o
           | &nbsp;{{messages.length}}
         a(ng-if="selectedLocation.url", ng-href="{{selectedLocation.url}}", style="font-weight: 300;")

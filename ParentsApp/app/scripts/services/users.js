@@ -14,16 +14,20 @@ angular.module('App')
     };
 
     var init = function() {
+
       if(!localStorage.userId) {
         userId = genUUID();
+        var createdAt = (new Date()).getTime();
         localStorage.userId = userId;
         localStorage.userName = 'Awesome Parent';
         localStorage.userEmail = '';
+        localStorage.createdAt = createdAt;
         var userRef = new Firebase('https://fiery-fire-3697.firebaseio.com/users/' + userId);
-        userRef.set({userName: 'Awesome Parent', userEmail: ''});
+        userRef.set({userName: 'Awesome Parent', userEmail: '', createdAt: createdAt});
       } else {
         userId = localStorage.userId;
       }
+      console.log('init', userId);
     };
 
     var update = function(name, email) {
@@ -33,8 +37,12 @@ angular.module('App')
       userRef.set({userName: name, userEmail: email});
     };
 
+    var getUserId = function() {
+      return userId;
+    };
+
     return {
-      userId: userId,
+      getUserId: getUserId,
       init: init,
       update: update
     };

@@ -22,9 +22,10 @@ angular.module('App')
       $scope.mapSectionOpen = false;
     };
 
-    $scope.showMessages = function(title) {
+    $scope.showMessages = function(title, isFeedback) {
       $scope.messageSectionTitle = title;
       $scope.messagesSectionOpen = true;
+      if(isFeedback) {$scope.getMessages();}
     };
 
     $scope.closeMessages = function() {
@@ -35,7 +36,7 @@ angular.module('App')
       var name = $scope.userName.trim() || 'Awesome Parent';
       var msg = $scope.newMessage.trim();
       if(msg) {
-        $timeout(function() {messageRef.push({name: name, msg: msg, createdAt: Firebase.ServerValue.TIMESTAMP, userId: UserSvc.userId});}, 10);
+        $timeout(function() {messageRef.push({name: name, msg: msg, createdAt: Firebase.ServerValue.TIMESTAMP, userId: UserSvc.getUserId()});}, 10);
       }
       $scope.newMessage = '';
     };
@@ -62,8 +63,18 @@ angular.module('App')
       if(messageRef) {
         messageRef.off();
       }
-      $scope.messages = [];
-      messageRef = new Firebase('https://fiery-fire-3697.firebaseio.com/messages/' + locationId);
+      if(typeof locationId === 'undefined') {
+        $scope.messages = [{
+          name: 'Admin',
+          msg: 'Tell us about your favorite kids play area, nursing spot or any other parenting related spot that you like.',
+          createdAt: localStorage.createdAt * 1 || (new Date()).getTime()
+        }];
+        messageRef = new Firebase('https://fiery-fire-3697.firebaseio.com/feedback/' + UserSvc.getUserId());
+      } else {
+        $scope.messages = [];
+        messageRef = new Firebase('https://fiery-fire-3697.firebaseio.com/messages/' + locationId);  
+      }
+      
       messageRef.on('child_added', function(snapshot) {
         var message = snapshot.val();
         $scope.messages.unshift(message);
