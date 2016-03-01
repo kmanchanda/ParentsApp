@@ -22,11 +22,11 @@
         label
           b YOUR NAME
           small &nbsp;Would be nice to know your name
-        input(type="text", ng-model="userName", placeholder="Your name", maxlength="50")
+        input(type="text", ng-model="userName", placeholder="Your name", maxlength="50", ng-change="updateUserInfo()")
         label
           b EMAIL
           small &nbsp;No spam, promise
-        input(type="text", ng-model="userEmail", placeholder="Your email id", maxlength="50")
+        input(type="text", ng-model="userEmail", placeholder="Your email id", maxlength="50", ng-change="updateUserInfo()")
       button.btn-primary(ng-click="showMessages('Suggest a spot', false)")
         | SUGGEST A SPOT
   .map-container

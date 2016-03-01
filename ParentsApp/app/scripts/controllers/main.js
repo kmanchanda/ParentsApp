@@ -1,13 +1,14 @@
 'use strict';
 
 angular.module('App')
-  .controller('MainCtrl', ['$scope', '$q', '$timeout', 'LocationSvc', function ($scope, $q, $timeout, LocationSvc) {
+  .controller('MainCtrl', ['$scope', '$q', '$timeout', 'LocationSvc', 'UserSvc', function ($scope, $q, $timeout, LocationSvc, UserSvc) {
 
     var messageRef;
     //var msg1 = [{name: 'admin', msg: 'Tell us about your favorite kids play area, nursing spot or any other parenting related spot that you like.'}];
 
-    $scope.userName = 'Awesome Parent';
-    $scope.userEmail = '';
+    UserSvc.init();
+    $scope.userName = localStorage.userName;
+    $scope.userEmail = localStorage.userEmail;
     $scope.newMessage = '';
 
     $scope.toggleLocationType = function(locationType) {
@@ -34,7 +35,7 @@ angular.module('App')
       var name = $scope.userName.trim() || 'Awesome Parent';
       var msg = $scope.newMessage.trim();
       if(msg) {
-        $timeout(function() {messageRef.push({name: name, msg: msg, createdAt: Firebase.ServerValue.TIMESTAMP});}, 10);
+        $timeout(function() {messageRef.push({name: name, msg: msg, createdAt: Firebase.ServerValue.TIMESTAMP, userId: UserSvc.userId});}, 10);
       }
       $scope.newMessage = '';
     };
@@ -68,6 +69,10 @@ angular.module('App')
         $scope.messages.unshift(message);
         $scope.$apply();
       });
+    };
+
+    $scope.updateUserInfo = function() {
+      UserSvc.update($scope.userName, $scope.userEmail);
     };
 
   }]);
