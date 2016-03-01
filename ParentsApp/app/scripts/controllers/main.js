@@ -1,25 +1,28 @@
 'use strict';
 
 angular.module('App')
-  .controller('MainCtrl', ['$scope', '$q', 'LocationSvc', function ($scope, $q, LocationSvc) {
+  .controller('MainCtrl', ['$scope', '$q', '$timeout', 'LocationSvc', function ($scope, $q, $timeout, LocationSvc) {
 
-    var msg1 = [{name: 'admin', msg: 'Tell us about your favorite kids play area, nursing spot or any other parenting related spot that you like.'}];
-    var msg2 = [{name: 'John', msg: 'This place is the best in the city'}, {name: 'Jim', msg: 'Not sure what the hype is all about. I didnt like it all.'}, {name: 'John', msg: 'This place is the best in the city'}, {name: 'Jim', msg: 'Not sure what the hype is all about. I didnt like it all.'}];
+    var messageRef;
+    //var msg1 = [{name: 'admin', msg: 'Tell us about your favorite kids play area, nursing spot or any other parenting related spot that you like.'}];
+
+    $scope.userName = 'Awesome Parent';
+    $scope.userEmail = '';
+    $scope.newMessage = '';
 
     $scope.toggleLocationType = function(locationType) {
       $scope.mapSectionOpen = true;
       $scope.selectedLocationType = locationType;
       LocationSvc.locationType = locationType;
-      $scope.$broadcast('toggle:markers');
+      $scope.$emit('toggle:markers');
     };
 
     $scope.backToNav = function() {
       $scope.mapSectionOpen = false;
     };
 
-    $scope.showMessages = function(title, isLocation) {
+    $scope.showMessages = function(title) {
       $scope.messageSectionTitle = title;
-      $scope.messages = isLocation ? msg2 : msg1;
       $scope.messagesSectionOpen = true;
     };
 
@@ -28,12 +31,16 @@ angular.module('App')
     };
 
     $scope.addMessage = function() {
-      $scope.messages.unshift({name: 'You', msg: $scope.newMessage});
+      var name = $scope.userName.trim() || 'Awesome Parent';
+      var msg = $scope.newMessage.trim();
+      if(msg) {
+        $timeout(function() {messageRef.push({name: name, msg: msg, createdAt: Firebase.ServerValue.TIMESTAMP});}, 10);
+      }
       $scope.newMessage = '';
     };
 
     $scope.getMyLocation = function() {
-      if($scope.locationRequest) {return;}
+      if($scope.locationRequest || !google) {return;}
 
       $scope.locationRequest = $q.defer();
       navigator.geolocation.getCurrentPosition(function(position) {
@@ -45,8 +52,21 @@ angular.module('App')
       });
       
       $scope.locationRequest.promise.then(function(loc) {
-        $scope.$broadcast('update:location', loc);
+        $scope.$emit('update:location', loc);
         $scope.locationRequest = null;
+      });
+    };
+
+    $scope.getMessages = function(locationId) {
+      if(messageRef) {
+        messageRef.off();
+      }
+      $scope.messages = [];
+      messageRef = new Firebase('https://fiery-fire-3697.firebaseio.com/messages/' + locationId);
+      messageRef.on('child_added', function(snapshot) {
+        var message = snapshot.val();
+        $scope.messages.unshift(message);
+        $scope.$apply();
       });
     };
 

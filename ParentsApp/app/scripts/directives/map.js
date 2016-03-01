@@ -76,6 +76,7 @@ angular.module('App')
           details: location.details,
           type: location.type,
           url: location.url,
+          locationId: location.id,
           icon: baseMarkerIcon
         });
 
@@ -85,6 +86,7 @@ angular.module('App')
             if(_prevSelectedMarker) {_prevSelectedMarker.setIcon(baseMarkerIcon);}
             _prevSelectedMarker = marker;
             _scope.selectedLocation = {title: this.title, details: this.details, url: this.url};  
+            _scope.getMessages(marker.locationId);
           } else {
             marker.setIcon(baseMarkerIcon);
             _prevSelectedMarker = null;
@@ -144,7 +146,7 @@ angular.module('App')
         _scope = scope;
         loadMapAPI();
 
-        scope.$on('toggle:markers', function(e, m) {
+        scope.$on('toggle:markers', function() {
           toggleMarkers();
         });
         scope.$on('update:location', function(e, m) {
