@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('App')
-  .directive('map', ['LocationList', function (LocationList) {
+  .directive('map', ['LocationSvc', function (LocationSvc) {
 
     var _element, _scope, _map, _prevSelectedMarker, _myLocationMarker;
     var baseMarkerIcon, myLocationIcon, selectedMarkerIcon;
+    var markerList;
 
     // --=== marker defintions ===--
 
@@ -66,8 +67,8 @@ angular.module('App')
       _myLocationMarker = marker;
     }
 
-    function addLocationMarkers() {      
-      _.each(LocationList, function(location) {
+    function addLocationMarkers() {
+      _.each(markerList, function(location) {
         var marker = new google.maps.Marker({
           position:new google.maps.LatLng(location.lat, location.lon),
           map: _map,
@@ -97,10 +98,11 @@ angular.module('App')
       toggleMarkers();
     }
 
-    function toggleMarkers(locationType) {
-      _.each(LocationList, function(location) {
+    function toggleMarkers() {
+      var locationType = LocationSvc.locationType;
+      _.each(markerList, function(location) {
         if(location.marker) {
-          location.marker.setVisible(!locationType || (locationType === location.type));
+          location.marker.setVisible(locationType === location.type);
         }
       });
     }
@@ -127,7 +129,10 @@ angular.module('App')
       });
       createMarkerIcons();
       addMyLocationMarker(currentPos);
-      addLocationMarkers();
+      LocationSvc.get().then(function(locations) {
+        markerList = locations;
+        addLocationMarkers();  
+      });
     };
 
     return {
@@ -140,7 +145,7 @@ angular.module('App')
         loadMapAPI();
 
         scope.$on('toggle:markers', function(e, m) {
-          toggleMarkers(m);
+          toggleMarkers();
         });
         scope.$on('update:location', function(e, m) {
           updateMyLocation(m);

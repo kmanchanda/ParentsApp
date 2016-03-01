@@ -20,6 +20,7 @@
   "jquery": true,
   "globals": {
     "angular": true,
+    "Firebase": true,
     "_": true,
     "d3": true,
     "google": true,

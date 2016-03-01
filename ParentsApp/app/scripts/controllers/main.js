@@ -1,15 +1,16 @@
 'use strict';
 
 angular.module('App')
-  .controller('MainCtrl', ['$scope', '$q', function ($scope, $q) {
+  .controller('MainCtrl', ['$scope', '$q', 'LocationSvc', function ($scope, $q, LocationSvc) {
 
     var msg1 = [{name: 'admin', msg: 'Tell us about your favorite kids play area, nursing spot or any other parenting related spot that you like.'}];
     var msg2 = [{name: 'John', msg: 'This place is the best in the city'}, {name: 'Jim', msg: 'Not sure what the hype is all about. I didnt like it all.'}, {name: 'John', msg: 'This place is the best in the city'}, {name: 'Jim', msg: 'Not sure what the hype is all about. I didnt like it all.'}];
 
     $scope.toggleLocationType = function(locationType) {
       $scope.mapSectionOpen = true;
-      $scope.selectedLocationType = locationType || 'All';
-      $scope.$broadcast('toggle:markers', locationType);
+      $scope.selectedLocationType = locationType;
+      LocationSvc.locationType = locationType;
+      $scope.$broadcast('toggle:markers');
     };
 
     $scope.backToNav = function() {
