@@ -23,7 +23,7 @@ angular.module('App')
         localStorage.userEmail = '';
         localStorage.createdAt = createdAt;
         var userRef = new Firebase('https://fiery-fire-3697.firebaseio.com/users/' + userId);
-        userRef.set({userName: 'Awesome Parent', userEmail: '', createdAt: createdAt});
+        userRef.set({name: 'Awesome Parent', email: '', createdAt: createdAt});
       } else {
         userId = localStorage.userId;
       }
@@ -34,7 +34,7 @@ angular.module('App')
       localStorage.userName = name;
       localStorage.userEmail = email;
       var userRef = new Firebase('https://fiery-fire-3697.firebaseio.com/users/' + userId);
-      userRef.set({userName: name, userEmail: email});
+      userRef.update({name: name, email: email});
     };
 
     var getUserId = function() {
