@@ -1,37 +1,29 @@
 .scroll-container(ng-class="{'map-section-open': mapSectionOpen}")
   .nav-container
     .header(style="font-size: 1.1em;")
-      span(style="font-weight: 800;") SINGAPORE
-      span(style="font-weight: 300; color: #a7a7a7;") FOR
-      span(style="font-weight: 800;") PARENTS
-    div(style="height: 100%; overflow-y: auto; overflow-x: hidden;")
-      .explore-button(ng-click="toggleLocationType('Play')")
+      span(style="font-weight: 800;") SG&nbsp;
+      span(style="font-weight: 300;") PARENTS
+      br
+      span(style="font-weight: 300; font-size: 0.9em; font-style: italic;") Find kids stuff near you
+    div(style="height: 50%; margin-top: 50%; text-align: center", ng-if="!categories")
+      i.fa.fa-spinner.fa-spin.fa-2x
+    div(style="height: 100%; overflow-y: auto; overflow-x: hidden;", ng-if="categories")
+      .explore-button(ng-click="toggleLocationType(category.id)", ng-repeat="category in categories")
         i.fa.fa-angle-right
-        b PLAY AREAS&nbsp;
-        | FOR KIDS
+        span.bold-text
+          span(ng-repeat="item in category.name.split('|')") {{item}}
         br
-        small The coolest play areas in Singapore hand-picked for you to explore
-      .explore-button(ng-click="toggleLocationType('Nursing')")
-        i.fa.fa-angle-right
-        b NURSING&nbsp;
-        | SPOTS
-        br
-        small Find the nursing spot closest to where you are or planning to go
-      .explore-button(ng-click="toggleLocationType('Food and Play')")
-        i.fa.fa-angle-right
-        b FOOD AND PLAY
-        br
-        small Lorem Ipsum
-    .footer
+        small {{category.desc}}
+    .footer(ng-if="categories")
       div
-        label
-          b YOUR NAME
-          small &nbsp;Would be nice to know your name
-        input(type="text", ng-model="userName", placeholder="Your name", maxlength="50", ng-change="updateUserInfo()")
         label
           b EMAIL
           small &nbsp;No spam, promise
         input(type="text", ng-model="userEmail", placeholder="Your email id", maxlength="50", ng-change="updateUserInfo()")
+        label
+          b DISPLAY NAME
+          small &nbsp;For any messages you send
+        input(type="text", ng-model="userName", placeholder="Your name", maxlength="50", ng-change="updateUserInfo()")
       button.btn-primary(ng-click="showMessages('Suggest a spot', true)")
         | SUGGEST A SPOT
   .map-container

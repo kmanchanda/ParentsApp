@@ -45,7 +45,6 @@ html {
     background-color: white;
     border-bottom: 1px solid #c2c2c2;
     padding: 20px;
-    line-height: 50px;
     text-align: center;
     overflow: hidden;
     z-index: 1;
@@ -93,7 +92,7 @@ html {
 
 .nav-container {
   background: #f3f3f3;
-  padding-bottom: 200px;
+  padding-bottom: 220px;
   .explore-button {
     margin: 0 4%;
     border-bottom: 1px solid #c2c2c2;
@@ -107,12 +106,21 @@ html {
       font-size: 1.6em;
       margin-right: -5px;
     }
+    .bold-text {
+      > span{
+        font-weight: 300;
+        &:nth-child(odd) {
+          font-weight: 700;
+        }
+      }
+    }
   }
   .footer {
-    background: #f3f3f3;
-    padding-top: 47px;
+    background: #000;
+    padding-top: 27px;
+    color: white;
     > div{
-      margin: 0 4%;
+      margin: 0 4% 20px 4%;
       label {
         font-size: 0.8em;
         display: inline-block;
@@ -133,6 +141,7 @@ html {
     }
     > button {
       width: 100%;
+      padding: 20px 0;
     } 
   }
 }

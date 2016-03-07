@@ -4,12 +4,13 @@ angular.module('App')
   .controller('MainCtrl', ['$scope', '$q', '$timeout', 'LocationSvc', 'UserSvc', function ($scope, $q, $timeout, LocationSvc, UserSvc) {
 
     var messageRef;
-    //var msg1 = [{name: 'admin', msg: 'Tell us about your favorite kids play area, nursing spot or any other parenting related spot that you like.'}];
 
     UserSvc.init();
     $scope.userName = localStorage.userName;
     $scope.userEmail = localStorage.userEmail;
     $scope.newMessage = '';
+
+    LocationSvc.getCategories().then(function(r) {$scope.categories = r;});
 
     $scope.toggleLocationType = function(locationType) {
       $scope.mapSectionOpen = true;
