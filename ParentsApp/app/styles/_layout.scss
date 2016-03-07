@@ -45,6 +45,7 @@ html {
     background-color: white;
     border-bottom: 1px solid #c2c2c2;
     padding: 20px;
+    line-height: 50px;
     text-align: center;
     overflow: hidden;
     z-index: 1;
@@ -182,7 +183,7 @@ html {
   width: 100%;
   z-index: 10;
   background-color: white;
-  padding-bottom: 54px;
+  padding-bottom: 104px;
   transform: translateY(0%);
   transition: transform 0.4s ease-in;
   &.messages-section-open {
@@ -210,30 +211,28 @@ html {
   }
   .footer {
     box-shadow: 0px -1px 3px 0px rgba(100, 100, 100, 0.3);
-    background: #f3f3f3;
+    background: #000;
     padding-right: 70px;
+    color: white;
     .send-button, textarea {
-      height: 50px;
       font-size: 0.9em;
     }
     .send-button {
-      background: transparent;
+      background: #0CC260;
       border: none;
-      padding: 3px 0px 0px 0px;
-      font-weight: 700;
+      padding: 10px 0px;
       position: absolute;
-      right: 0;
-      width: 70px;
-      text-align: center;
-      &:hover, &:active {
-        color: #a8a8a8;
-      }
+      right: 5px;
+      width: 60px;
+      top: 5px;
+      border-radius: 4px;
     }
     textarea {
+      height: 100px;
       border: none;
       background: none;
       width: 100%;
-      padding: 3px 5px;
+      padding: 5px 10px;
     }
   }
 }

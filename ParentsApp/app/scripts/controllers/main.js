@@ -87,4 +87,12 @@ angular.module('App')
       UserSvc.update($scope.userName, $scope.userEmail);
     };
 
+    $scope.$on('app:backbutton', function() {
+      if($scope.messagesSectionOpen) {
+        $scope.closeMessages();
+      } else if($scope.mapSectionOpen) {
+        $scope.backToNav();
+      }
+    });
+
   }]);

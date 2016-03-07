@@ -12,7 +12,8 @@ angular.module('App')
 
       locationsRef.once('value', function(snapshot) {
         var locations = snapshot.val();
-        deferred.resolve(locations.length ? locations : []);
+        locations = locations.length ? _.compact(locations) : [];
+        deferred.resolve(locations);
       }, function () {
         deferred.resolve([]);
       });  

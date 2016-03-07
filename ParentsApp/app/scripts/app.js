@@ -10,4 +10,7 @@ angular.module('App', ['ngRoute'])
       .otherwise({
         redirectTo: '/'
       });
+  }])
+  .run(['$rootScope', function ($rootScope) {
+    document.addEventListener('backbutton', function(){$rootScope.$emit('app:backbutton');}, false);
   }]);

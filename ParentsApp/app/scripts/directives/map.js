@@ -101,6 +101,10 @@ angular.module('App')
     }
 
     function toggleMarkers() {
+      if(_prevSelectedMarker) {_prevSelectedMarker.setIcon(baseMarkerIcon);}
+      _prevSelectedMarker = null;
+      _scope.selectedLocation = null;
+      
       var locationType = LocationSvc.locationType;
       _.each(markerList, function(location) {
         if(location.marker) {

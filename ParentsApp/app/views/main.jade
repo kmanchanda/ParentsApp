@@ -1,6 +1,6 @@
 .scroll-container(ng-class="{'map-section-open': mapSectionOpen}")
   .nav-container
-    .header(style="font-size: 1.1em;")
+    .header(style="font-size: 1.1em; line-height: initial;")
       span(style="font-weight: 800;") SG&nbsp;
       span(style="font-weight: 300;") PARENTS
       br
@@ -60,5 +60,5 @@
       span {{msg.name}}
       small {{msg.msg}}
   .footer
-    .send-button(ng-click="addMessage()") SEND
+    button.send-button(ng-click="addMessage()") SEND
     textarea(placeholder="Your message", ng-model="newMessage", maxlength="256")
