@@ -6,3 +6,5 @@ bower_components
 *.csv
 *.xlsx
 temp.json
+ParentsApp/plugins
+ParentsApp/platforms
