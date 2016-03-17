@@ -17,12 +17,13 @@ angular.module('App')
 
       if(!localStorage.userId) {
         userId = genUUID();
+        var createdAt = (new Date()).getTime();
         localStorage.userId = userId;
         localStorage.userName = 'Awesome Parent';
         localStorage.userEmail = '';
-        localStorage.createdAt = (new Date()).getTime();
+        localStorage.createdAt = createdAt;
         var userRef = new Firebase('https://fiery-fire-3697.firebaseio.com/users/' + userId);
-        userRef.set({name: 'Awesome Parent', email: '', createdAt: Firebase.ServerValue.TIMESTAMP});
+        userRef.set({name: 'Awesome Parent', email: '', createdAt: createdAt});
       } else {
         userId = localStorage.userId;
       }

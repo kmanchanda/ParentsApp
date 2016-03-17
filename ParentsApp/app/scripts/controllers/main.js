@@ -1,12 +1,10 @@
 'use strict';
 
 angular.module('App')
-  .controller('MainCtrl', ['$scope', '$q', '$timeout', 'LocationSvc', 'UserSvc', 'GoogleAnalyticsSvc', function ($scope, $q, $timeout, LocationSvc, UserSvc, GoogleAnalyticsSvc) {
+  .controller('MainCtrl', ['$scope', '$q', '$timeout', 'LocationSvc', 'UserSvc', function ($scope, $q, $timeout, LocationSvc, UserSvc) {
 
     var messageRef;
 
-    GoogleAnalyticsSvc.init();
-    GoogleAnalyticsSvc.view('App started');
     UserSvc.init();
     $scope.userName = localStorage.userName;
     $scope.userEmail = localStorage.userEmail;
@@ -15,7 +13,6 @@ angular.module('App')
     LocationSvc.getCategories().then(function(r) {$scope.categories = r;});
 
     $scope.toggleLocationType = function(locationType) {
-      GoogleAnalyticsSvc.view('Map - ' + locationType);
       $scope.mapSectionOpen = true;
       $scope.selectedLocationType = locationType;
       LocationSvc.locationType = locationType;
