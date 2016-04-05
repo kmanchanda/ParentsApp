@@ -87,6 +87,7 @@ angular.module('App')
             _prevSelectedMarker = marker;
             _scope.selectedLocation = {title: this.title, details: this.details, url: this.url};  
             _scope.getMessages(marker.locationId);
+            _map.panTo(marker.position);
           } else {
             marker.setIcon(baseMarkerIcon);
             _prevSelectedMarker = null;
@@ -121,11 +122,11 @@ angular.module('App')
     }
 
     window.plotMap = function(){
-      var pos = {lat: 1.34, long: 103.85};
+      var pos = {lat: 1.29, long: 103.85};
       var currentPos = new google.maps.LatLng(pos.lat, pos.long);
       _map = new google.maps.Map(_element[0], {
         center:currentPos,
-        zoom:12,
+        zoom:15,
         disableDefaultUI: true,
         zoomControl: true,
         zoomControlOptions: {
@@ -138,6 +139,11 @@ angular.module('App')
       LocationSvc.get().then(function(locations) {
         markerList = locations;
         addLocationMarkers();  
+      });
+      navigator.geolocation.getCurrentPosition(function(position) {
+        updateMyLocation({lat: position.coords.latitude, long: position.coords.longitude});
+      }, function() {}, {
+        timeout: 3000
       });
     };
 
