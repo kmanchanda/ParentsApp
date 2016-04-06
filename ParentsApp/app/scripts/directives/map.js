@@ -3,7 +3,7 @@
 angular.module('App')
   .directive('map', ['LocationSvc', function (LocationSvc) {
 
-    var _element, _scope, _map, _prevSelectedMarker, _myLocationMarker;
+    var _element, _scope, _map, _prevSelectedMarker, _myLocationMarker, _initialPosition;
     var baseMarkerIcon, myLocationIcon, selectedMarkerIcon;
     var markerList;
 
@@ -51,12 +51,12 @@ angular.module('App')
 
     // --=== map initialization and rendering ===--
 
-    function addMyLocationMarker(latlong) {
+    function addMyLocationMarker(latlong, isVisible) {
       var marker = new google.maps.Marker({
         position:latlong,
         map: _map,
         icon: myLocationIcon,
-        visible: false
+        visible: isVisible
       });
       var infoWindow = new google.maps.InfoWindow({
         content: 'YOUR CURRENT LOCATION'
@@ -119,10 +119,23 @@ angular.module('App')
       script.type = 'text/javascript';
       document.getElementsByTagName('head')[0].appendChild(script);
       script.src = 'http://maps.googleapis.com/maps/api/js?v=3&callback=plotMap';
+
+      // parallely load my current position
+      navigator.geolocation.getCurrentPosition(function(position) {
+        _initialPosition = {lat: position.coords.latitude, long: position.coords.longitude};
+        window.plotMap();
+      }, function() {
+        _initialPosition = null;
+        window.plotMap();
+      }, {
+        timeout: 3000
+      });
     }
 
     window.plotMap = function(){
-      var pos = {lat: 1.29, long: 103.85};
+      if(_initialPosition === undefined || !google) {return;}
+      
+      var pos = _initialPosition || {lat: 1.29, long: 103.85};
       var currentPos = new google.maps.LatLng(pos.lat, pos.long);
       _map = new google.maps.Map(_element[0], {
         center:currentPos,
@@ -135,15 +148,10 @@ angular.module('App')
         mapTypeId:google.maps.MapTypeId.ROADMAP
       });
       createMarkerIcons();
-      addMyLocationMarker(currentPos);
+      addMyLocationMarker(currentPos, _initialPosition ? true : false);
       LocationSvc.get().then(function(locations) {
         markerList = locations;
         addLocationMarkers();  
-      });
-      navigator.geolocation.getCurrentPosition(function(position) {
-        updateMyLocation({lat: position.coords.latitude, long: position.coords.longitude});
-      }, function() {}, {
-        timeout: 3000
       });
     };
 
