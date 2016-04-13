@@ -1,10 +1,10 @@
 .scroll-container(ng-class="{'map-section-open': mapSectionOpen}")
   .nav-container
     .header(style="font-size: 1.1em; line-height: initial;")
-      span(style="font-weight: 800;") SG&nbsp;
-      span(style="font-weight: 300;") PARENTS
+      span(style="font-weight: bold;") SG&nbsp;
+      span PARENTS
       br
-      span(style="font-weight: 300; font-size: 0.9em; font-style: italic;") Find kids stuff near you
+      span(style="font-size: 0.9em; font-style: italic;") Find kids stuff near you
     div(style="height: 50%; margin-top: 50%; text-align: center", ng-if="!categories")
       i.fa.fa-spinner.fa-spin.fa-2x
     div(style="height: 100%; overflow-y: auto; overflow-x: hidden;", ng-if="categories")
@@ -37,18 +37,18 @@
     .main-section(map="")
     .footer
       div
-        p(ng-if="!selectedLocation", style="font-weight: 300; font-style: italic;")
+        p(ng-if="!selectedLocation", style="font-style: italic;")
           i.fa.fa-angle-double-left
           | &nbsp;SELECT A LOCATION ON THE MAP TO VIEW DETAILS&nbsp;
           i.fa.fa-angle-double-right
         button.btn-primary(ng-if="selectedLocation.title", ng-click="showMessages(selectedLocation.title, false)")
           i.fa.fa-comment-o
-          | &nbsp;{{messages.length}}
-        a(ng-if="selectedLocation.url", ng-href="{{selectedLocation.url}}", style="font-weight: 300;")
+          | &nbsp;&nbsp;{{messages.length}}
+        a(ng-if="selectedLocation.url", ng-href="{{selectedLocation.url}}")
           i.fa.fa-link
           | &nbsp;{{selectedLocation.url}}
-        p(ng-if="selectedLocation.title", style="font-weight: 700") {{selectedLocation.title}}
-        p(ng-if="selectedLocation.details", style="font-weight: 300") {{selectedLocation.details}}
+        p(ng-if="selectedLocation.title", style="font-weight: bold") {{selectedLocation.title}}
+        p(ng-if="selectedLocation.details") {{selectedLocation.details}}
 .message-container(ng-class="{'messages-section-open': messagesSectionOpen}")
   .header
     span(style="font-size: 1.1em;") {{messageSectionTitle}}

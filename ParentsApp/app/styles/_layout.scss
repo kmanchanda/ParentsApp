@@ -11,7 +11,7 @@ html {
     padding: 0px;
     margin: 0px;
     height: 100%;
-    font-family: 'Open Sans';
+    font-family: 'Open Sans', Helvetica, sans-serif;
     font-size: 14px;
     color: #1b1b1b;
     .container {
@@ -108,11 +108,8 @@ html {
       margin-right: -5px;
     }
     .bold-text {
-      > span{
-        font-weight: 300;
-        &:nth-child(odd) {
-          font-weight: 700;
-        }
+      > span:nth-child(odd) {
+        font-weight: bold;
       }
     }
   }
@@ -168,9 +165,11 @@ html {
       }
       > button {
         border-radius: 4px;
-        width: 70px;
+        width: 90px;
         float: right;
         margin: 0 0 5px 5px;
+        padding: 15px 0;
+        font-size: 15px;
       }
     }
   }
@@ -203,7 +202,6 @@ html {
         padding-left: 10px;
       }
       small {
-        font-weight: 300;
         display: inline-block;
         width: 100%;
       }
