@@ -85,7 +85,7 @@ angular.module('App')
             marker.setIcon(selectedMarkerIcon);
             if(_prevSelectedMarker) {_prevSelectedMarker.setIcon(baseMarkerIcon);}
             _prevSelectedMarker = marker;
-            _scope.selectedLocation = {title: this.title, details: this.details, url: this.url};  
+            _scope.selectedLocation = {title: this.title, details: this.details, url: this.url, id: marker.locationId};
             _scope.getMessages(marker.locationId);
             _map.panTo(marker.position);
           } else {

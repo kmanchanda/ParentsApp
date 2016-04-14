@@ -9,6 +9,7 @@ angular.module('App')
     $scope.userName = localStorage.userName;
     $scope.userEmail = localStorage.userEmail;
     $scope.newMessage = '';
+    $scope.isFeedback = false;
 
     LocationSvc.getCategories().then(function(r) {$scope.categories = r;});
 
@@ -24,6 +25,7 @@ angular.module('App')
     };
 
     $scope.showMessages = function(title, isFeedback) {
+      $scope.isFeedback = isFeedback;
       $scope.messageSectionTitle = isFeedback ? title : 'Write feedback for "' + title + '"';
       $scope.messagesSectionOpen = true;
       if(isFeedback) {$scope.getMessages();}
@@ -77,7 +79,10 @@ angular.module('App')
       }
       
       messageRef.on('child_added', function(snapshot) {
+        var currentUserId = UserSvc.getUserId();
         var message = snapshot.val();
+        message.id = snapshot.key();
+        if(message.spam && message.spam[currentUserId]) {message.isSpam = true;}
         $scope.messages.unshift(message);
         $scope.$apply();
       });
@@ -90,7 +95,14 @@ angular.module('App')
     $scope.openExternalUrl = function(e, url) {
       e.preventDefault();
       window.open(url, '_system');
-    }
+    };
+
+    $scope.reportSpam = function(msg) {
+      if(msg.isSpam) {return;}
+      msg.isSpam = true;
+      var spamRef = new Firebase('https://fiery-fire-3697.firebaseio.com/messages/' + $scope.selectedLocation.id + '/' + msg.id + '/spam/' + UserSvc.getUserId());
+      spamRef.set(1);
+    };    
 
     $scope.$on('app:backbutton', function() {
       if($scope.messagesSectionOpen) {

@@ -204,7 +204,17 @@ html {
         font-size: 0.75em;
         color: #a8a8a8;
         float: right;
-        padding-left: 10px;
+        padding: 0px 10px;
+        &.spam-badge {
+          color: #3476DC;
+          border: 1px solid #3476DC;
+          padding: 0px 5px;
+          border-radius: 4px;
+          &.selected {
+            color: #ddd;
+            border: 1px solid #ddd;
+          }
+        }
       }
       small {
         display: inline-block;
