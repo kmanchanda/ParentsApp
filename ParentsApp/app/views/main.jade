@@ -57,7 +57,7 @@
       i.fa.fa-close
   .main-section
     .message(ng-repeat="msg in messages")
-      span.badge.spam-badge(ng-class="{selected: msg.isSpam}", ng-click="reportSpam(msg)", ng-if="!$parent.isFeedback") Spam
+      span.badge.spam-badge(ng-class="{selected: msg.isSpam}", ng-click="reportSpam(msg)", ng-if="!$parent.isFeedback") Report
       span.badge {{msg.createdAt | msgdate}}
       span {{msg.name}}
       small {{msg.msg}}

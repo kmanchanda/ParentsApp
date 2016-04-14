@@ -6,8 +6,8 @@ angular.module('App')
     var messageRef;
 
     UserSvc.init();
-    $scope.userName = localStorage.userName;
-    $scope.userEmail = localStorage.userEmail;
+    $scope.userName = localStorage.userName || '';
+    $scope.userEmail = localStorage.userEmail || '';
     $scope.newMessage = '';
     $scope.isFeedback = false;
 
@@ -26,7 +26,7 @@ angular.module('App')
 
     $scope.showMessages = function(title, isFeedback) {
       $scope.isFeedback = isFeedback;
-      $scope.messageSectionTitle = isFeedback ? title : 'Write feedback for "' + title + '"';
+      $scope.messageSectionTitle = isFeedback ? title : 'Feedback for "' + title + '"';
       $scope.messagesSectionOpen = true;
       if(isFeedback) {$scope.getMessages();}
     };
