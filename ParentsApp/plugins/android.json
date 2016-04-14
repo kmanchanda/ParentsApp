@@ -12,6 +12,9 @@
         },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.infonetapps.sgparents"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.infonetapps.sgparents"
         }
     },
     "dependent_plugins": {}

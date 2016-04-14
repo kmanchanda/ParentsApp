@@ -24,7 +24,7 @@ angular.module('App')
     };
 
     $scope.showMessages = function(title, isFeedback) {
-      $scope.messageSectionTitle = title;
+      $scope.messageSectionTitle = isFeedback ? title : 'Write feedback for "' + title + '"';
       $scope.messagesSectionOpen = true;
       if(isFeedback) {$scope.getMessages();}
     };
@@ -66,7 +66,7 @@ angular.module('App')
       }
       if(typeof locationId === 'undefined') {
         $scope.messages = [{
-          name: 'Admin',
+          name: 'Nearby Lah for Parents',
           msg: 'Tell us about your favorite kids play area, nursing spot or any other parenting related spot that you like.',
           createdAt: localStorage.createdAt * 1 || (new Date()).getTime()
         }];
@@ -86,6 +86,11 @@ angular.module('App')
     $scope.updateUserInfo = function() {
       UserSvc.update($scope.userName, $scope.userEmail);
     };
+
+    $scope.openExternalUrl = function(e, url) {
+      e.preventDefault();
+      window.open(url, '_system');
+    }
 
     $scope.$on('app:backbutton', function() {
       if($scope.messagesSectionOpen) {

@@ -1,8 +1,8 @@
 .scroll-container(ng-class="{'map-section-open': mapSectionOpen}")
   .nav-container
     .header(style="font-size: 1.1em; line-height: initial;")
-      span(style="font-weight: bold;") SG&nbsp;
-      span PARENTS
+      span(style="font-weight: bold;") NEARBY LAH&nbsp;
+      span FOR PARENTS
       br
       span(style="font-size: 0.9em; font-style: italic;") Find kids stuff near you
     div(style="height: 50%; margin-top: 50%; text-align: center", ng-if="!categories")
@@ -19,12 +19,13 @@
         label
           b EMAIL
           small &nbsp;No spam, promise
-        input(type="text", ng-model="userEmail", placeholder="Your email id", maxlength="50", ng-change="updateUserInfo()")
+        input(type="text", ng-model="$parent.userEmail", placeholder="Your email id", maxlength="50", ng-change="updateUserInfo()")
         label
           b DISPLAY NAME
           small &nbsp;For any messages you send
-        input(type="text", ng-model="userName", placeholder="Your name", maxlength="50", ng-change="updateUserInfo()")
+        input(type="text", ng-model="$parent.userName", placeholder="Your name", maxlength="50", ng-change="updateUserInfo()")
       button.btn-primary(ng-click="showMessages('Suggest a spot', true)")
+        b HELP OTHERS.&nbsp;
         | SUGGEST A SPOT
   .map-container
     .header
@@ -44,7 +45,7 @@
         button.btn-primary(ng-if="selectedLocation.title", ng-click="showMessages(selectedLocation.title, false)")
           i.fa.fa-comment-o
           | &nbsp;&nbsp;{{messages.length}}
-        a(ng-if="selectedLocation.url", ng-href="{{selectedLocation.url}}")
+        a(ng-if="selectedLocation.url", href="#", ng-click="openExternalUrl($event, selectedLocation.url)")
           i.fa.fa-link
           | &nbsp;{{selectedLocation.url}}
         p(ng-if="selectedLocation.title", style="font-weight: bold") {{selectedLocation.title}}

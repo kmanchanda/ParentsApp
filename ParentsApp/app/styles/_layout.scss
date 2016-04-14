@@ -140,6 +140,7 @@ html {
     > button {
       width: 100%;
       padding: 20px 0;
+      font-size: 16px;
     } 
   }
 }
@@ -170,6 +171,10 @@ html {
         margin: 0 0 5px 5px;
         padding: 15px 0;
         font-size: 15px;
+        line-height: 15px;
+        i.fa {
+          font-size: 20px;
+        }
       }
     }
   }

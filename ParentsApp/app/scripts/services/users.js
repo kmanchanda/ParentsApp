@@ -33,7 +33,12 @@ angular.module('App')
       localStorage.userName = name;
       localStorage.userEmail = email;
       var userRef = new Firebase('https://fiery-fire-3697.firebaseio.com/users/' + userId);
-      userRef.update({name: name, email: email});
+      userRef.update({name: name, email: email}, function(error) {
+        if (error) {
+          var newUserRef = new Firebase('https://fiery-fire-3697.firebaseio.com/users/' + userId);
+          newUserRef.set({name: name, email: email, createdAt: Firebase.ServerValue.TIMESTAMP});
+        }
+      });
     };
 
     var getUserId = function() {
