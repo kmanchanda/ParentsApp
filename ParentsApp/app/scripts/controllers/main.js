@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('App')
-  .controller('MainCtrl', ['$scope', '$q', '$timeout', 'LocationSvc', 'UserSvc', function ($scope, $q, $timeout, LocationSvc, UserSvc) {
+  .controller('MainCtrl', ['$scope', '$q', '$timeout', 'LocationSvc', 'UserSvc', 'AnalyticsSvc', function ($scope, $q, $timeout, LocationSvc, UserSvc, AnalyticsSvc) {
 
     var messageRef;
 
@@ -12,12 +12,14 @@ angular.module('App')
     $scope.isFeedback = false;
 
     LocationSvc.getCategories().then(function(r) {$scope.categories = r;});
+    AnalyticsSvc.sendScreen('Home');
 
     $scope.toggleLocationType = function(locationType) {
       $scope.mapSectionOpen = true;
       $scope.selectedLocationType = locationType;
       LocationSvc.locationType = locationType;
       $scope.$emit('toggle:markers');
+      AnalyticsSvc.sendScreen(locationType);
     };
 
     $scope.backToNav = function() {
@@ -28,7 +30,12 @@ angular.module('App')
       $scope.isFeedback = isFeedback;
       $scope.messageSectionTitle = isFeedback ? title : 'Feedback for "' + title + '"';
       $scope.messagesSectionOpen = true;
-      if(isFeedback) {$scope.getMessages();}
+      if(isFeedback) {
+        $scope.getMessages();
+        AnalyticsSvc.sendScreen('Suggest');
+      } else {
+        AnalyticsSvc.sendScreen('Messages');
+      }
     };
 
     $scope.closeMessages = function() {

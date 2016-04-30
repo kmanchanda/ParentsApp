@@ -6,3 +6,4 @@ bower_components
 *.csv
 *.xlsx
 temp.json
+com.cmackay.plugins.googleanalytics

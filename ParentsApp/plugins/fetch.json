@@ -22,5 +22,13 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "com.cmackay.plugins.googleanalytics": {
+        "source": {
+            "type": "registry",
+            "id": "com.cmackay.plugins.googleanalytics"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

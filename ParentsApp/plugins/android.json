@@ -15,6 +15,9 @@
         },
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.infonetapps.sgparents"
+        },
+        "com.cmackay.plugins.googleanalytics": {
+            "PACKAGE_NAME": "com.infonetapps.sgparents"
         }
     },
     "dependent_plugins": {}

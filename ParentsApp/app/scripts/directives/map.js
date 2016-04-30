@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('App')
-  .directive('map', ['LocationSvc', function (LocationSvc) {
+  .directive('map', ['LocationSvc', 'AnalyticsSvc', function (LocationSvc, AnalyticsSvc) {
 
     var _element, _scope, _map, _prevSelectedMarker, _myLocationMarker, _initialPosition;
     var baseMarkerIcon, myLocationIcon, selectedMarkerIcon;
@@ -88,6 +88,7 @@ angular.module('App')
             _scope.selectedLocation = {title: this.title, details: this.details, url: this.url, id: marker.locationId};
             _scope.getMessages(marker.locationId);
             _map.panTo(marker.position);
+            AnalyticsSvc.sendEvent('Location', 'select', this.title);
           } else {
             marker.setIcon(baseMarkerIcon);
             _prevSelectedMarker = null;
@@ -118,7 +119,7 @@ angular.module('App')
       var script = document.createElement('script');
       script.type = 'text/javascript';
       document.getElementsByTagName('head')[0].appendChild(script);
-      script.src = 'http://maps.googleapis.com/maps/api/js?v=3&callback=plotMap';
+      script.src = 'http://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDss1BZnj52uDXd5G4JaxwwPDF8uszzkI8&callback=plotMap';
 
       // parallely load my current position
       navigator.geolocation.getCurrentPosition(function(position) {

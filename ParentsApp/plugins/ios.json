@@ -15,6 +15,9 @@
         },
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+        },
+        "com.cmackay.plugins.googleanalytics": {
+            "PACKAGE_NAME": "com.infonetapps.nearbylahparents"
         }
     },
     "dependent_plugins": {}

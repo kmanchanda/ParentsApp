@@ -40,6 +40,14 @@ module.exports = [
             "cordova.InAppBrowser.open",
             "window.open"
         ]
+    },
+    {
+        "file": "plugins/com.cmackay.plugins.googleanalytics/www/analytics.js",
+        "id": "com.cmackay.plugins.googleanalytics.GoogleAnalytics",
+        "pluginId": "com.cmackay.plugins.googleanalytics",
+        "clobbers": [
+            "navigator.analytics"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -47,7 +55,8 @@ module.exports.metadata =
 {
     "cordova-plugin-geolocation": "2.1.0",
     "cordova-plugin-whitelist": "1.2.1",
-    "cordova-plugin-inappbrowser": "1.3.0"
+    "cordova-plugin-inappbrowser": "1.3.0",
+    "com.cmackay.plugins.googleanalytics": "0.1.22"
 }
 // BOTTOM OF METADATA
 });
