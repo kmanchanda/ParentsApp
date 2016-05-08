@@ -49,6 +49,7 @@ angular.module('App')
         $timeout(function() {messageRef.push({name: name, msg: msg, createdAt: Firebase.ServerValue.TIMESTAMP, userId: UserSvc.getUserId()});}, 10);
       }
       $scope.newMessage = '';
+      $scope.$emit('message:sent');
     };
 
     $scope.getMyLocation = function() {

@@ -27,6 +27,8 @@
         i.fa.fa-crosshairs(ng-if="!locationRequest")
         i.fa.fa-spinner.fa-spin(ng-if="locationRequest")
     .main-section(map="")
+    .button-section
+      button(ng-click="showMessages('Suggest a spot', true)") +
     .footer
       div(style="min-height: 70px;")
         p(ng-if="!selectedLocation", style="font-style: italic;")
@@ -54,15 +56,14 @@
       input(type="text", ng-model="userEmail", placeholder="Your email id", maxlength="50", ng-change="updateUserInfo()")
       label
         b DISPLAY NAME
-        small &nbsp;
       input(type="text", ng-model="userName", placeholder="Your name", maxlength="50", ng-change="updateUserInfo()")
       label
-        b MESSAGE
-        small &nbsp;
+        b(ng-if="isFeedback") DESCRIPTION
+        b(ng-if="!isFeedback") MESSAGE
     div(style="height: 100px;")
       textarea(ng-model="newMessage", maxlength="256")
     button.send-button(ng-click="addMessage()") SEND
-  .main-section
+  .main-section(scroll-top="")
     .message(ng-repeat="msg in messages")
       span.badge.spam-badge(ng-class="{selected: msg.isSpam}", ng-click="reportSpam(msg)", ng-if="!$parent.isFeedback") Report
       span.badge {{msg.createdAt | msgdate}}
