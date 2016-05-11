@@ -126,26 +126,11 @@ html {
   .main-section {
     height: 100%;
   }
-  .button-section {
-    position: absolute;
-    top: 85px;
-    left: 15px;
-    z-index: 1;
-    button {
-      font-size: 30px;
-      font-weight: bold;
-      background: #CB4E3A;
-      border: none;
-      width: 50px;
-      height: 50px;
-      border-radius: 25px;
-      color: white;
-      padding: 0;
-    } 
-  }
+    
   .footer {
     padding-top: 4px;
-    > div {
+    .location-info-section {
+      min-height: 70px;
       box-shadow: 0px -1px 3px 0px rgba(100, 100, 100, 0.3);
       background: #f3f3f3;
       padding: 15px 4%;
@@ -163,13 +148,39 @@ html {
         width: 90px;
         float: right;
         margin: 0 0 5px 5px;
-        padding: 15px 0;
+        padding: 5px 0;
         font-size: 15px;
         line-height: 15px;
         i.fa {
           font-size: 20px;
         }
       }
+      .like-button {
+        background-color: #264EF9;
+        border-radius: 4px;
+        width: 90px;
+        padding: 5px 0;
+        font-size: 15px;
+        line-height: 15px;
+        margin-right: 15px;
+      }
+    }
+    .button-section {
+      position: absolute;
+      top: -65px;
+      right: 15px;
+      z-index: 1;
+      button {
+        font-size: 30px;
+        font-weight: bold;
+        background: #CB4E3A;
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        color: white;
+        padding: 0;
+      } 
     }
   }
 }
