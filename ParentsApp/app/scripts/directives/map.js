@@ -77,8 +77,8 @@ angular.module('App')
           type: location.type,
           url: location.url,
           locationId: location.id,
-          likes: location.likes || 0,
-          icon: baseMarkerIcon
+          icon: baseMarkerIcon,
+          locationObj: location
         });
 
         google.maps.event.addListener(marker, 'click', function(){
@@ -86,7 +86,7 @@ angular.module('App')
             marker.setIcon(selectedMarkerIcon);
             if(_prevSelectedMarker) {_prevSelectedMarker.setIcon(baseMarkerIcon);}
             _prevSelectedMarker = marker;
-            _scope.selectedLocation = {title: this.title, details: this.details, url: this.url, id: marker.locationId, likes: this.likes};
+            _scope.selectedLocation = {title: this.title, details: this.details, url: this.url, id: marker.locationId, locationObj: this.locationObj};
             _scope.getMessages(marker.locationId);
             _map.panTo(marker.position);
             AnalyticsSvc.sendEvent('Location', 'select', this.title);

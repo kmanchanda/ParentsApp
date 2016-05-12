@@ -120,6 +120,14 @@ angular.module('App')
       $scope.userInfo = 'name';
     };
 
+    $scope.like = function() {
+      var likeCount = ($scope.selectedLocation.locationObj.likes || 0) + 1;
+      var likeRef = new Firebase('https://fiery-fire-3697.firebaseio.com/locations/' + $scope.selectedLocation.id + '/likes');
+      likeRef.set(likeCount);
+      $scope.selectedLocation.locationObj.likes = likeCount;
+      $scope.selectedLocation.locationObj.disableLike = true;
+    };
+
     $scope.$on('app:backbutton', function() {
       if($scope.messagesSectionOpen) {
         $scope.closeMessages();

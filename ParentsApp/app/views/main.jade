@@ -44,10 +44,10 @@
         p(ng-if="selectedLocation.title", style="font-weight: bold") {{selectedLocation.title}}
         p(ng-if="selectedLocation.details") {{selectedLocation.details}}
         p(ng-if="selectedLocation.title", style="padding: 10px 0 0 0") 
-          button.btn-primary.like-button(ng-click="like()")
+          button.btn-primary.like-button(ng-click="like()", ng-disabled="selectedLocation.locationObj.disableLike")
             i.fa.fa-thumbs-o-up
             | &nbsp;Like
-          i {{selectedLocation.likes}} people like this
+          i {{selectedLocation.locationObj.likes || 0}} people like this
 .message-container(ng-class="{'messages-section-open': messagesSectionOpen}")
   .header
     span(style="font-size: 1.1em;") {{messageSectionTitle}}
