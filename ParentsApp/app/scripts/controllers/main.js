@@ -110,7 +110,15 @@ angular.module('App')
       msg.isSpam = true;
       var spamRef = new Firebase('https://fiery-fire-3697.firebaseio.com/messages/' + $scope.selectedLocation.id + '/' + msg.id + '/spam/' + UserSvc.getUserId());
       spamRef.set(1);
-    };    
+    };
+
+    $scope.userInfoNext = function() {
+      $scope.userInfo = ($scope.userInfo === 'name') ? 'email' : '';
+    };
+
+    $scope.userInfoUpdate = function() {
+      $scope.userInfo = 'name';
+    };
 
     $scope.$on('app:backbutton', function() {
       if($scope.messagesSectionOpen) {
