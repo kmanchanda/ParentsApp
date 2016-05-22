@@ -1,0 +1,51 @@
+{
+   "locations":{
+      "0":{
+         "details":"896 Dunearn Road, #01-01A,",
+         "lat":"1.336674",
+         "lon":"103.783307",
+         "name":"TOTT (SIME DARBY CENTRE, BUKIT TIMAH)",
+         "type":"Food and Play",
+         "url":"https://www.tottstore.com/",
+         "id":0,
+         "likes":1
+      }
+   },
+   "categories":{
+      "0":{
+         "id":"Play",
+         "name":"PLAY AREAS |FOR KIDS",
+         "desc":"The coolest play areas in Singapore for you to explore"
+      }
+   },
+   "messages":{
+      "0":{
+         "-KFIcINOpaObsSO44juL":{
+            "createdAt":1460618213197,
+            "msg":"Fun fun fun !",
+            "name":"Awesome Parent",
+            "userId":"aab98574-15db-490b-a10f-2bdcc0b7cddc",
+            "spam":{
+               "00746122-fb65-458a-ae83-1a81a89e4e91":1
+            }
+         }
+      }
+   },
+   "users":{
+      "00746122-fb65-458a-ae83-1a81a89e4e91":{
+         "createdAt":1461538688261,
+         "email":"",
+         "name":"Awesome Parent"
+      }
+   },
+   "feedback":{
+      "035fae6e-900b-418f-2748-b081c6c9129d":{
+         "-KE0w3q-UcoliXKX1wdV":{
+            "createdAt":1459247664835,
+            "msg":"test message",
+            "name":"Awesome Parent",
+            "userId":"035fae6e-900b-418f-2748-b081c6c9129d"
+         }
+      }
+   }
+}
